@@ -10,12 +10,14 @@ jobs:
         with:
           submodules: recursive
       - name: Bootstrap vcpkg
-        run: $env:VCPKG_INSTALLATION_ROOT/bootstrap.vcpkg.bat
+        shell: bash
+        run: ${VCPKG_INSTALLATION_ROOT}/bootstrap.vcpkg.bat
       - name: Install vcpkg dependencies
         run: vcpkg install
       - name: Generate project files with CMake
+        shell: bash
         run: |
-          cmake -G "Visual Studio 16 2019" -A x64 -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=$env:VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static .
+          cmake -G "Visual Studio 16 2019" -A x64 -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=${VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static .
       - name: Build
         run: cmake --build . --config Release
       - uses: actions/upload-artifact@v2
