@@ -11,7 +11,7 @@ jobs:
           submodules: recursive
       - name: Bootstrap vcpkg
         shell: bash
-        run: ${VCPKG_INSTALLATION_ROOT}/bootstrap.vcpkg.bat
+        run: ${VCPKG_INSTALLATION_ROOT}/bootstrap-vcpkg.bat
       - name: Install vcpkg dependencies
         run: vcpkg install
       - name: Generate project files with CMake
