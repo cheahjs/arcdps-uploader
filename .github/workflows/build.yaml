@@ -10,12 +10,10 @@ jobs:
         with:
           submodules: recursive
       - name: Bootstrap vcpkg
-        run: |
-          cd $VCPKG_INSTALLATION_ROOT
-          ./bootstrap-vcpkg.bat
-      - name: Install packages
+        run: ${{ env.VCPKG_INSTALLATION_ROOT }}/bootstrap.vcpkg.bat
+      - name: Install vcpkg dependencies
         run: vcpkg install
-      - name: Configure CMake
+      - name: Generate project files with CMake
         run: |
           cmake -G "Visual Studio 16 2019" -A x64 -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=${VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static .
       - name: Build
